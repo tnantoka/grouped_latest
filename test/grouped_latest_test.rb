@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class GroupedLatestTest < ActiveSupport::TestCase
+  STRATEGIES = %w(gl_arel_in gl_arel_exists gl_array_in)
+
   setup do
   end
 
@@ -19,6 +21,12 @@ class GroupedLatestTest < ActiveSupport::TestCase
     Post.latest_column = :created_at
     assert_equal Category.last.posts.last,
       @user.posts.grouped_latest(:category_id).where(category_id: Category.last.id).take
+
+    STRATEGIES.each do |strategy|
+      Post.latest_strategy = strategy
+      assert_equal Category.last.posts.last,
+        @user.posts.grouped_latest(:category_id).where(category_id: Category.last.id).take
+    end
   end
 
   test "benchmark" do
@@ -27,7 +35,7 @@ class GroupedLatestTest < ActiveSupport::TestCase
     init
 
     result = ['', "Strategy\tAverage"]
-    %w(gl_arel_in gl_arel_exists gl_array_in).each do |strategy|
+    STRATEGIES.each do |strategy|
       result << bench(strategy)
     end
     puts result.join("\n")

@@ -1,3 +1,11 @@
+require 'simplecov'
+SimpleCov.start do
+  add_filter '/test/'
+end
+
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 

@@ -43,9 +43,9 @@ WIP. I'm looking for the fastest logic.
 ```
 $ rake test BENCH=1
 Strategy        Average
-gl_arel_in      0.11766659384011291ms
-gl_arel_exists  0.11125772824743763ms
-gl_array_in     11.046947546623414ms
+gl_arel_in      0.13105687065399252ms
+gl_arel_exists  0.13757433084538206ms
+gl_array_in     11.309650258132024ms
 ```
 
 ## Licence
